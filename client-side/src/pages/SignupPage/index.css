@@ -1,0 +1,27 @@
+.signupWrapper {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.signupWrapper > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signupWrapper label,
+.signupWrapper div {
+  margin: 10px 0px;
+}
+
+.signupWrapper input {
+  max-width: 50%;
+}
+
+.borderRed,
+.borderRed:focus {
+  z-index: 1 !important;
+  border-color: #ff1264 !important;
+  box-shadow: 0 0 0 1px #ff1a9e !important;
+}

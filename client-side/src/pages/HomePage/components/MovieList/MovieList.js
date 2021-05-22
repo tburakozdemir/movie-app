@@ -1,0 +1,16 @@
+import { Box } from "@chakra-ui/layout";
+import MovieItem from "./components/MovieItem";
+import "./style.css";
+
+const MovieList = ({ movieList = [], userId }) => {
+  return (
+    <Box mt={3} className="movieListWrapper">
+      {movieList.length &&
+        movieList.map((item) => {
+          return <MovieItem item={item} key={item.id} userId={userId} />;
+        })}
+    </Box>
+  );
+};
+
+export default MovieList;

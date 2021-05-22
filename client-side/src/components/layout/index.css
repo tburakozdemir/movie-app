@@ -1,0 +1,24 @@
+.topNav {
+  height: 100px;
+  padding: 1.5em;
+  position: relative;
+}
+
+.dropdown {
+  align-items: center;
+  background-color: white;
+  border: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+  left: -120px;
+  padding: 5px;
+  margin-top: 2px;
+  position: absolute;
+  width: 150px;
+  z-index: 1;
+}
+
+.dropdown button,
+.dropdown button:hover {
+  background: transparent;
+}
