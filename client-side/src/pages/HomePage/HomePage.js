@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image } from "@chakra-ui/react";
 import MovieList from "./components/MovieList/MovieList";
 import TopNav from "../../components/layout/TopNav";
 import "./style.css";
@@ -20,14 +20,16 @@ const getTrending = async () => {
 
 const HomePage = () => {
   const [userId] = useState(localStorage.getItem("userId"));
+  const [favMovieList,setFavMovieList] = useState([]);
   const { data, isLoading, isFetching } = useQuery(
     "trend-movies",
     getTrending,
     { staleTime: 10000 }
   );
 
-  if (isLoading) <h1>Loading...</h1>;
 
+  if (isLoading) <h1>Loading...</h1>;
+    console.log(favMovieList)
   return (
     <>
       <TopNav />
@@ -35,12 +37,32 @@ const HomePage = () => {
         <Heading fontSize="2xl" fontStyle="italic" width="80%" margin="0 auto">
           Trends
         </Heading>
-        {!isFetching && <MovieList movieList={data} userId={userId} />}
+        {!isFetching && <MovieList movieList={data} userId={userId} setFavMovieList={setFavMovieList} />}
       </Box>
       <Box mt={10}>
         <Heading fontSize="2xl" fontStyle="italic" width="80%" margin="0 auto">
           Recommandations based on your ❤️
         </Heading>
+        <Flex width="80%" margin="0 auto" >
+        {favMovieList.length && favMovieList.map(item=>{
+          return(
+            <Box key={item.id} className="card">
+            <Box className="movieImage">
+              <Image
+                src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
+                alt={item.title}
+              />
+            </Box>
+            <Box className="movieDescription">
+              <Heading as="h6" size="xs">
+                {item.title ? item.title : item.name}
+              </Heading>
+            </Box>
+          </Box>
+          )
+        })
+      }
+      </Flex>
       </Box>
     </>
   );

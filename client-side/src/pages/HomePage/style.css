@@ -1,0 +1,57 @@
+.card {
+    align-content: flex-start;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e3e3e3;
+    cursor: pointer;
+    display: flex;
+    filter: drop-shadow(2px 4px 6px gray);
+    flex-wrap: wrap;
+    margin-top: 30px;
+    max-width: 200px;
+    position: relative;
+    transition: transform 0.1s linear;
+    width: 200px;
+  }
+  
+  .card:hover {
+    transform: scale(1.1);
+  }
+  
+  .movieImage img {
+    height: 300px;
+    max-height: 300px;
+    max-width: 100%;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .movieDescription {
+    width: 100%;
+    padding: 10px 10px 12px 10px;
+    white-space: normal;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .heartIcon {
+    align-items: center;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    position: absolute;
+    right: -5px;
+    transform: rotate(-15deg);
+    top: -10px;
+    width: 40px;
+  }
+  
+  .heartIcon svg {
+    width: 30px;
+    height: 30px;
+  }
+  

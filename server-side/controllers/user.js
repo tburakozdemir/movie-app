@@ -33,12 +33,11 @@ exports.login = (req, res) => {
 
 exports.updateMovieList = (req, res) => {
   const body = req.body;
-    console.log(body)
+
   User.findOne({ _id: body.userId }).then((user) => {
     if (!user) {
       return res.status(401).send("User ID not valid");
     }
-    
     const movie = user.favoriteMovies.find((item) => {
       item.movieId === body.movie.id;
     });
@@ -47,13 +46,29 @@ exports.updateMovieList = (req, res) => {
       const index = user.favoriteMovies.findIndex(movie.id);
       user.favoriteMovies.splice(index, 1);
     } else {
-      user.favoriteMovies.push(body.movie);
-      console.log(body.movie);
+      user.favoriteMovies.push(body);
     }
 
-    user.save();
+    user.save().then(updatedUser=>{
+      let count = 0;
+      let genreArr = []
+      
+      for (let i = 0; i < updatedUser.favoriteMovies.length; i++) {
+        let genreId = updatedUser.favoriteMovies[i].movie.genreId
+        genreArr.push(genreId);  
+        count++;
+      }
+      let countsGenre = {};
+      genreArr.map(x => { countsGenre[x] = (countsGenre[x] || 0)+1; });
+      const sorted = Object.entries(countsGenre).sort((prev, next) => prev[1] - next[1]);
+      const maxGenreId =sorted[sorted.length-1][0];
+      console.log(maxGenreId);
+      res.send(maxGenreId)
+    });
   });
 };
+
+
 
 exports.deleteUser = (req, res) => {
   const id = req.body.userId;

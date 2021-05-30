@@ -7,25 +7,31 @@ import { useMutation } from "react-query";
 import axios from "axios";
 import "./style.css";
 
-const updateMovieList = (data) => {
-  axios({
+const updateMovieList =async (data) => {
+  const response =  await axios({
     method: "put",
     url: "http://localhost:3000/movie",
     data,
-  }).then((resp) => {
-    if (resp.status === 200) {
-    } else {
-    }
   });
+  return response.data;
 };
 
-const MovieItem = ({ item, userId }) => {
-  const [isMovieFav, setIsMovieFav] = useState(false);
-  const mutation = useMutation(updateMovieList, {
-    onSuccess: (data) => {
-      setIsMovieFav((prevState) => !prevState);
-    },
+const getMoviesByGenre = async (id) => {
+  const movieResp =  await axios({
+    method: "get",
+    url: `https://api.themoviedb.org/3/discover/movie?api_key=51dd329c7baed101bf31949a22cb32c1&with_genres=${id}`,
   });
+  
+  return movieResp;
+};
+
+
+const MovieItem = ({ item, userId, setFavMovieList }) => {
+  const [isMovieFav, setIsMovieFav] = useState(false);
+  const mutation = useMutation(updateMovieList, {onSuccess: (id) => {
+    setIsMovieFav(prevStatus => !prevStatus)
+    getMoviesByGenre(id).then(resp=>setFavMovieList(resp.data.results))
+  }})
 
   const handleMovieFav = () => {
     mutation.mutate({

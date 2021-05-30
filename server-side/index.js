@@ -9,7 +9,7 @@ const url = process.env.MONGODB_URL;
 
 app.use(cors());
 
-const { signup, login, updateMovieList, deleteUser, listFav } = require('./controllers/user');
+const { signup, login, updateMovieList, deleteUser, listFav, getCount } = require('./controllers/user');
 
 const jsonParser = bodyParser.json();
 
@@ -30,6 +30,8 @@ app.post("/login", jsonParser, login);
 app.put("/movie", jsonParser, updateMovieList);
 app.delete("/deleteUser", jsonParser, deleteUser);
 app.get("/listFav", jsonParser, listFav);
+//app.get("/getCount", jsonParser, getCount);
+
 
 app.listen(port, () => {
     console.log(`Listening on ${port}`)
